@@ -97,6 +97,10 @@ def IsValid(password_string):
     
 
 def CalculateEntropy(password_string, pool_size):
+    """
+    Calculates Shannon entropy for a given password and character pool.
+    Returns the raw float value representing bits of entropy.
+    """
     # Calculate the total length of the password
     password_length = len(password_string)
     
@@ -109,14 +113,17 @@ def CalculateEntropy(password_string, pool_size):
     
 
 def CalculateCrackTime(entropy_score):
-    # We assume a modern cracking rig can test 100 billion passwords a second
+    """
+    Calculates the expected time to crack based on the entropy and guessing at a rate \
+    of 10 billion guesses per second
+    """
     guesses_per_second = 100000000000 
     
     # 2 to the power of the entropy score gives us the total combinations
     total_combinations = 2 ** entropy_score
     
-    # Calculate total seconds to guess every combination
-    seconds = total_combinations / guesses_per_second
+    # Calculate total seconds to guess every combination (divided by 2 to calculate average crack time)
+    seconds = total_combinations / guesses_per_second / 2
     
     # Convert seconds into a human readable format
     if seconds < 60:
@@ -166,8 +173,7 @@ password_length = len(password)
 
 # Query terminal width
 display_width = max(shutil.get_terminal_size(fallback=(105, 24)).columns, 105)
-w = ((display_width - 37) // 3) # 3 columns of equal width. Minus 37 to account for "space | space" * 4, POOL SIZE and PASSWORD LENGTH
-print(f"Display width = {display_width}, {display_width // 4}")
+w = ((display_width - 37) // 3) # 3 columns of equal width. Minus 37 to account for "space | space" * 4, and fixed length columns, POOL SIZE and PASSWORD LENGTH
 
 # 1. Print a decorative header (Expanded to max terminal width)
 print("\n" + "=" * display_width)
@@ -175,7 +181,7 @@ print(f"{'PASSWORD SECURITY ANALYSIS':^{display_width}}")
 print("=" * display_width)
 
 # 2. Print the table column titles
-print(f"{'SCENARIO':^{w}} | {'POOL SIZE':^10} | {'PASSWORD LENGTH':^15} | {'ENTROPY (BITS)':^{w}} | {'ESTIMATED CRACK TIME':^{w}}")
+print(f"{'SCENARIO':^{w}} | {'POOL SIZE':^10} | {'PASSWORD LENGTH':^15} | {'ENTROPY (BITS)':^{w}} | {'AVERAGE CRACK TIME':^{w}}")
 print("-" * display_width)
 
 # 3. Print the data rows with the new length variable
