@@ -172,7 +172,7 @@ crack_time_all_emojis = CalculateCrackTime(entropy_all_emojis)
 password_length = len(password)
 
 # Query terminal width
-display_width = max(shutil.get_terminal_size(fallback=(105, 24)).columns, 105)
+display_width = max(shutil.get_terminal_size(fallback=(112, 24)).columns, 112)
 w = ((display_width - 37) // 3) # 3 columns of equal width. Minus 37 to account for "space | space" * 4, and fixed length columns, POOL SIZE and PASSWORD LENGTH
 
 # 1. Print a decorative header (Expanded to max terminal width)
