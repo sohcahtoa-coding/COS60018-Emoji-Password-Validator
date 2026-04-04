@@ -143,51 +143,52 @@ def CalculateCrackTime(entropy_score):
         return f"{round(years):,} years"
 
 
-print("Your password must contain at least one of the following secure emojis:")
+if __name__ == "__main__":  # Run the program
+    print("Your password must contain at least one of the following secure emojis:")
 
-# Loop through the array and print them in neat rows of 10
+    # Loop through the array and print them in neat rows of 10
 
-count = 0
-for i in safe_emojis:
-    print(i,end=" ")
-    count += 1
-    if count % 10 == 0:
-        print()
+    count = 0
+    for i in safe_emojis:
+        print(i,end=" ")
+        count += 1
+        if count % 10 == 0:
+            print()
 
-password_is_valid = False
-while password_is_valid == False:
-    password = input("\nEnter your new password: ")
-    password_is_valid = IsValid(password)
+    password_is_valid = False
+    while password_is_valid == False:
+        password = input("\nEnter your new password: ")
+        password_is_valid = IsValid(password)
 
-# Password validity test complete. Now for entropy calculations.
-final_entropy = CalculateEntropy(password, WHITELIST_POOL_SIZE) # standard pool size + 50 emojis
-entropy_no_emojis = CalculateEntropy(password, STANDARD_POOL_SIZE) # standard pool size
-entropy_all_emojis = CalculateEntropy(password, MAX_EMOJI_POOL_SIZE) # standard pool size + 1400 atomic emojis
-crack_time = CalculateCrackTime(final_entropy)
-crack_time_no_emojis = CalculateCrackTime(entropy_no_emojis)
-crack_time_all_emojis = CalculateCrackTime(entropy_all_emojis)
+    # Password validity test complete. Now for entropy calculations.
+    final_entropy = CalculateEntropy(password, WHITELIST_POOL_SIZE) # standard pool size + 50 emojis
+    entropy_no_emojis = CalculateEntropy(password, STANDARD_POOL_SIZE) # standard pool size
+    entropy_all_emojis = CalculateEntropy(password, MAX_EMOJI_POOL_SIZE) # standard pool size + 1400 atomic emojis
+    crack_time = CalculateCrackTime(final_entropy)
+    crack_time_no_emojis = CalculateCrackTime(entropy_no_emojis)
+    crack_time_all_emojis = CalculateCrackTime(entropy_all_emojis)
 
 
-# Capture the length of the valid password
-password_length = len(password)
+    # Capture the length of the valid password
+    password_length = len(password)
 
-# Query terminal width
-display_width = max(shutil.get_terminal_size(fallback=(112, 24)).columns, 112)
-w = ((display_width - 37) // 3) # 3 columns of equal width. Minus 37 to account for "space | space" * 4, and fixed length columns, POOL SIZE and PASSWORD LENGTH
+    # Query terminal width
+    display_width = max(shutil.get_terminal_size(fallback=(112, 24)).columns, 112)
+    w = ((display_width - 37) // 3) # 3 columns of equal width. Minus 37 to account for "space | space" * 4, and fixed length columns, POOL SIZE and PASSWORD LENGTH
 
-# 1. Print a decorative header (Expanded to max terminal width)
-print("\n" + "=" * display_width)
-print(f"{'PASSWORD SECURITY ANALYSIS':^{display_width}}")
-print("=" * display_width)
+    # Print a decorative header (Expanded to max terminal width)
+    print("\n" + "=" * display_width)
+    print(f"{'PASSWORD SECURITY ANALYSIS':^{display_width}}")
+    print("=" * display_width)
 
-# 2. Print the table column titles
-print(f"{'SCENARIO':^{w}} | {'POOL SIZE':^10} | {'PASSWORD LENGTH':^15} | {'ENTROPY (BITS)':^{w}} | {'AVERAGE CRACK TIME':^{w}}")
-print("-" * display_width)
+    # Print the table column titles
+    print(f"{'SCENARIO':^{w}} | {'POOL SIZE':^10} | {'PASSWORD LENGTH':^15} | {'ENTROPY (BITS)':^{w}} | {'AVERAGE CRACK TIME':^{w}}")
+    print("-" * display_width)
 
-# 3. Print the data rows with the new length variable
-print(f"{'Standard (No Emojis)':^{w}} | {STANDARD_POOL_SIZE:^10} | {password_length:^15} | {entropy_no_emojis:^{w}.2f} | {crack_time_no_emojis:^{w}}")
-print(f"{'Whitelist (50 Emojis)':^{w}} | {WHITELIST_POOL_SIZE:^10} | {password_length:^15} | {final_entropy:^{w}.2f} | {crack_time:^{w}}")
-print(f"{'All atomic Emojis (~1400)':^{w}} | {MAX_EMOJI_POOL_SIZE:^10} | {password_length:^15} | {entropy_all_emojis:^{w}.2f} | {crack_time_all_emojis:^{w}}")
+    # Print the data rows with the new length variable
+    print(f"{'Standard (No Emojis)':^{w}} | {STANDARD_POOL_SIZE:^10} | {password_length:^15} | {entropy_no_emojis:^{w}.2f} | {crack_time_no_emojis:^{w}}")
+    print(f"{'Whitelist (50 Emojis)':^{w}} | {WHITELIST_POOL_SIZE:^10} | {password_length:^15} | {final_entropy:^{w}.2f} | {crack_time:^{w}}")
+    print(f"{'All atomic Emojis (~1400)':^{w}} | {MAX_EMOJI_POOL_SIZE:^10} | {password_length:^15} | {entropy_all_emojis:^{w}.2f} | {crack_time_all_emojis:^{w}}")
 
-# 4. Print a closing border
-print("=" * display_width + "\n")
+    # Print a closing border
+    print("=" * display_width + "\n")
