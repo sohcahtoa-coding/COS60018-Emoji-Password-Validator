@@ -160,9 +160,9 @@ while password_is_valid == False:
     password_is_valid = IsValid(password)
 
 # Password validity test complete. Now for entropy calculations.
-final_entropy = CalculateEntropy(password,144) # 144 = standard pool size + 50 emojis
-entropy_no_emojis = CalculateEntropy(password,94) # 94 = standard pool size
-entropy_all_emojis = CalculateEntropy(password, 1494) # 1494 = standard pool size + 1400 atomic emojis
+final_entropy = CalculateEntropy(password, WHITELIST_POOL_SIZE) # standard pool size + 50 emojis
+entropy_no_emojis = CalculateEntropy(password, STANDARD_POOL_SIZE) # standard pool size
+entropy_all_emojis = CalculateEntropy(password, MAX_EMOJI_POOL_SIZE) # standard pool size + 1400 atomic emojis
 crack_time = CalculateCrackTime(final_entropy)
 crack_time_no_emojis = CalculateCrackTime(entropy_no_emojis)
 crack_time_all_emojis = CalculateCrackTime(entropy_all_emojis)
