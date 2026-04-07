@@ -44,8 +44,8 @@ def IsValid(password_string):
     - Must not contain complex emojis
     """
     # Check for length
-    if len(password_string) < 6:
-       print("Your password must be at least 6 characters long. Please try again")
+    if len(password_string) < 7:
+       print("Your password must be at least 7 characters long. Please try again")
        return False
     # Check for at least one number
     has_number = False
