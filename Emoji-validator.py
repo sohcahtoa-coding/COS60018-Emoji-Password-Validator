@@ -35,6 +35,14 @@ safe_emojis = [
 
 
 def IsValid(password_string):
+    """
+    Checks to ensure that the password entered is valid according to the criteria:
+    - Must be at least 6 characters long.
+    - Must contain at least one digit.
+    - Must contain at least one atomic emoji from the safe list.
+    - Must contain at least one special character.
+    - Must not contain complex emojis
+    """
     # Check for length
     if len(password_string) < 6:
        print("Your password must be at least 6 characters long. Please try again")
@@ -77,10 +85,8 @@ def IsValid(password_string):
         '\U0001f3fe',   # Medium-Dark Skin Tone
         '\U0001f3ff'    # Dark Skin Tone
     ]
-    has_modifier = False
     for char in password_string:
         if char in forbidden_modifiers:
-            has_modifier = True
             if char == '\u200d':
                 print("Modifier ZWJ has been used")
             elif char == '\ufe0f':
@@ -115,9 +121,9 @@ def CalculateEntropy(password_string, pool_size):
 def CalculateCrackTime(entropy_score):
     """
     Calculates the expected time to crack based on the entropy and guessing at a rate \
-    of 10 billion guesses per second
+    of 100 billion guesses per second
     """
-    guesses_per_second = 100000000000 
+    guesses_per_second = 100_000_000_000 # Underscores improve readability. Ignored by Python. 
     
     # 2 to the power of the entropy score gives us the total combinations
     total_combinations = 2 ** entropy_score
@@ -134,13 +140,21 @@ def CalculateCrackTime(entropy_score):
     elif seconds < 86400:
         hours = seconds / 3600
         return f"{hours:.2f} hours"
-    elif seconds < 31536000:
+    elif seconds < 31_536_000:
         days = seconds / 86400
         return f"{days:.2f} days"
-    else:
+    elif seconds < 31_536_000_000_000:
         years = seconds / 31536000
         # The colon and comma automatically format large numbers (e.g., 1,000,000)
         return f"{round(years):,} years"
+    elif seconds < 31_536_000_000_000_000:
+        million_years = seconds / 31_536_000_000_000   # Underscores improve readability.
+        return f"{round(million_years):,} million years"
+    elif seconds < 157_680_000_000_000_000:  # ~5 billion years
+        billion_years = seconds / 31_536_000_000_000_000
+        return f"{round(billion_years):,} billion years"
+    else:
+        return f"Sun engulfs Earth first."
 
 
 if __name__ == "__main__":  # Run the program
