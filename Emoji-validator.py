@@ -37,7 +37,7 @@ safe_emojis = [
 def IsValid(password_string):
     """
     Checks to ensure that the password entered is valid according to the criteria:
-    - Must be at least 6 characters long.
+    - Must be at least 7 characters long.
     - Must contain at least one digit.
     - Must contain at least one atomic emoji from the safe list.
     - Must contain at least one special character.
@@ -45,7 +45,7 @@ def IsValid(password_string):
     """
     # Check for length
     if len(password_string) < 7:
-       print("Your password must be at least 7 characters long. Please try again")
+       print("Your password must be at least 7 characters long. Please try again.")
        return False
     # Check for at least one number
     has_number = False
@@ -54,7 +54,7 @@ def IsValid(password_string):
             has_number = True
             break
     if has_number == False:
-        print("Your password must have at least one number in it")
+        print("Your password must have at least one number in it. Please try again.")
         return False
     # Check for an emoji in the safe list
     has_emoji = False
@@ -63,7 +63,7 @@ def IsValid(password_string):
             has_emoji = True
             break
     if has_emoji == False:
-        print("Your password must have at least one emoji from the whitelist in it")
+        print("Your password must have at least one emoji from the whitelist in it. Please try again.")
         return False
     # Check for at least one special character
     standard_symbols = "!@#$%^&*()-_=+[]{}|;:'\",.<>/?~\\`"
@@ -123,7 +123,7 @@ def CalculateCrackTime(entropy_score):
     Calculates the expected time to crack based on the entropy and guessing at a rate \
     of 100 billion guesses per second
     """
-    guesses_per_second = 100_000_000_000 # Underscores improve readability. Ignored by Python. 
+    guesses_per_second = 100_000_000_000 # Underscores improve readability. 
     
     # 2 to the power of the entropy score gives us the total combinations
     total_combinations = 2 ** entropy_score
@@ -145,14 +145,14 @@ def CalculateCrackTime(entropy_score):
         return f"{days:.2f} days"
     elif seconds < 31_536_000_000_000:
         years = seconds / 31536000
-        # The colon and comma automatically format large numbers (e.g., 1,000,000)
-        return f"{round(years):,} years"
+        # The colon and comma automatically format large numbers (e.g. 1,000,000)
+        return f"{years:,.2f} years"
     elif seconds < 31_536_000_000_000_000:
         million_years = seconds / 31_536_000_000_000   # Underscores improve readability.
-        return f"{round(million_years):,} million years"
+        return f"{million_years:,.2f} million years"
     elif seconds < 157_680_000_000_000_000:  # ~5 billion years
         billion_years = seconds / 31_536_000_000_000_000
-        return f"{round(billion_years):,} billion years"
+        return f"{billion_years:,.2f} billion years"
     else:
         return f"Sun engulfs Earth first."
 
