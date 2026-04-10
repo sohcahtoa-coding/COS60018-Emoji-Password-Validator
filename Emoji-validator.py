@@ -1,6 +1,8 @@
-# COS60018: Unicode-Aware Password Validator
-# Whitelist of 50 safe, atomic emojis.
-# Stored as literal UTF-8 characters for readability.
+"""
+COS60018: Unicode-Aware Password Validator
+This script validates passwords based on length, digits, symbols, and a whitelist 
+of 50 atomic emojis stored as literal UTF-8 characters.
+"""
 
 import shutil # Required for adjusting the results to fit the terminal width
 
