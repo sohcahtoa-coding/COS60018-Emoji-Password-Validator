@@ -108,7 +108,7 @@ def CalculateCrackTime(password_length, pool_size):
 
 
 if __name__ == "__main__":  # Run the program
-    print("\n\nWelcome to the Emoji password validator and Brute-force crack time estimator!\n"
+    print("\nWelcome to the Emoji password validator and Brute-force crack time estimator!\n"
           "\nYour new password must be at least 7 characters long, contain at least one number,\n"
           "a special character, no complex emojis and at least one of the following atomic emojis:\n")
     # Loop through the emoji array and print them in rows of 10

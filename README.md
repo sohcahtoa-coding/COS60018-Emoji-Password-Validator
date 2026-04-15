@@ -1,4 +1,4 @@
-# COS60018 Emoji Password Validator
+# COS60018 Emoji Password Validator and Brute-force Crack Time Estimator
 
 This program prompts the user to create a password meeting strict criteria, including a minimum length, at least one number, at least one standard symbol, and at least one emoji.
 
@@ -19,4 +19,4 @@ Whilst perfectly valid, it added an unnecessary level of mathematical computatio
 ## The 7-Character Minimum
 The minimum password length is set to just seven characters. This was a deliberate choice to prove a point about how we calculate password strength.
 
-By adding 50 emojis into the mix, the total pool of available characters expands massively. This mathematical jump in possible combinations (or entropy) shows that you can build highly secure, brute-force resistant passwords without forcing people to remember ridiculously long strings. It is all about balancing strong security with actual human usability.
+By adding 50 emojis into the mix, the total pool of available characters expands significantly. This mathematical jump in possible combinations (or entropy) shows that you can build highly secure, brute-force resistant passwords without forcing people to remember ridiculously long strings. It is all about balancing strong security with actual human usability.
